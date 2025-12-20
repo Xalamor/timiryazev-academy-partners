@@ -1,36 +1,370 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Документация проекта timiryazev-academy-partners
 
-## Getting Started
+Проект — это Next.js-приложение, которое показывает международных партнёров Тимирязевской академии на интерактивной карте и в виде списков/страниц по странам.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Структура проекта
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Корневые файлы
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+•  .gitignore  
+  Служебный файл Git: перечисляет файлы/папки, которые не должны попадать в репозиторий (node_modules, сборка и т.п.).
 
-## Learn More
+•  package.json  
+  Описание npm-пакета:
+•  название проекта, версия;
+•  скрипты:
+◦  npm run dev — запуск dev-сервера;
+◦  npm run build — production-сборка;
+◦  npm run start — запуск production-сборки;
+◦  npm run lint — запуск ESLint.
+•  зависимости: next, react, react-dom, leaflet, react-leaflet, axios, tailwindcss, TypeScript и т.д.
+•  package-lock.json  
+  Зафиксированные версии всех зависимостей.
 
-To learn more about Next.js, take a look at the following resources:
+•  tsconfig.json  
+  Настройки TypeScript:
+•  включает .ts, .tsx и некоторые спец‑типы .next/...;
+•  строгий режим ("strict": true);
+•  алиасы путей:
+◦  "@/*" → корень проекта;
+◦  "@/public" → папка public;
+◦  "@/components" → папка components.
+•  next.config.ts  
+  Конфигурация Next.js (сейчас пустой объект, можно расширять по мере необходимости).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+•  eslint.config.mjs  
+  Конфигурация ESLint на основе eslint-config-next:
+•  подключены правила core-web-vitals и typescript;
+•  игнорируются служебные папки .next, out, build и файл next-env.d.ts.
+•  postcss.config.mjs  
+  Конфигурация PostCSS:
+•  использует плагин @tailwindcss/postcss (Tailwind CSS 4).
+•  README.md  
+  Стандартная документация от create-next-app (можно заменить на текущий документ).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Папка app/ — маршруты Next.js (App Router)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Папка app содержит корневой layout, глобальные стили и страницы (маршруты) приложения.
+
+app/layout.tsx
+
+Главный layout приложения:
+
+•  Подключает шрифты Geist и Geist_Mono из next/font/google.
+•  Устанавливает метаданные:
+◦  title: "Тимирязевская академия"
+◦  description: "Международное сотрудничество Тимирязевской академии".
+•  Подключает глобальные стили ./globals.css.
+•  Оборачивает содержимое во Flex‑контейнер с хедером и футером:
+◦  <Header /> (из components/Header.tsx);
+◦  <Footer /> (из components/Footer.tsx);
+◦  <main> для рендеринга страниц.
+
+app/page.tsx
+
+Корневая страница /:
+
+•  Импортирует и рендерит компонент <WorldMap />.
+•  По сути, главная страница — это карта партнёров.
+
+app/globals.css
+
+Глобальные CSS‑стили:
+
+•  Подключение Tailwind (@tailwind base; @tailwind components; @tailwind utilities;).
+•  Сброс отступов (* { box-sizing, padding, margin }).
+•  Ограничение по ширине и отключение горизонтального скролла для html, body.
+•  Базовый фон/цвет текста и шрифт по умолчанию.
+•  Стили для ссылок (a без подчеркивания).
+
+app/partners.ts
+
+Файл с данными партнёров и вспомогательными функциями (подробно — в отдельном разделе ниже):
+
+•  export interface Partner — TypeScript‑тип партнёра.
+•  export const PARTNERS: Partner[] — список всех партнёров (университетов).
+•  export const PARTNER_COUNTRIES: string[] — список стран‑партнёров.
+•  export const PARTNER_DATA: Record<string, string[]> — отображение страна → массив названий университетов (для карты).
+•  export function getPartnersByCountry(country: string) — фильтрация партнёров по стране.
+•  export function getCountryPartnersCount(country: string) — количество партнёров в стране.
+
+Папка app/partners/ — раздел «Партнёры»
+
+app/partners/page.tsx
+
+Страница /partners:
+
+•  Импортирует:
+◦  PARTNERS;
+◦  PARTNER_COUNTRIES;
+◦  getCountryPartnersCount.
+•  Формирует список стран с количеством партнёров:
+ts
+•  Отображает:
+◦  заголовок и краткое описание;
+◦  блок с общей статистикой:
+▪  количество стран‑партнёров;
+▪  количество университетов;
+▪  «1200+ студентов по обмену»;
+▪  «15+ лет сотрудничества»;
+◦  секцию стран‑партнёров:
+▪  каждая страна — карточка со ссылкой на /partners/[country], где country URL‑кодируется;
+◦  секцию «Все партнёры»:
+▪  сетка карточек всех университетов;
+▪  каждая карточка ведёт на конкретную страну с якорем: /partners/{country}#{partner.id}.
+
+Использует стили из ./partners.css.
+
+app/partners/partners.css
+
+CSS‑стили для:
+
+•  страницы /partners (общий контейнер, заголовок, статистика, сетка стран и партнёров);
+•  страницы /partners/[country] (классы country-partners-page, country-header, country-stats, partner-detail-card и т.п.);
+•  адаптивная вёрстка для мобильных устройств.
+
+app/partners/[country]/page.tsx
+
+Динамическая страница /partners/[country]:
+
+•  Помечена "use client", так как использует hooks.
+•  Использует:
+◦  useParams() из next/navigation для получения параметра country из URL;
+◦  getPartnersByCountry для выборки партнёров по стране;
+◦  window.location.hash для прокрутки к нужному партнёру по якорю.
+•  Логика:
+◦  В useEffect:
+▪  декодирует страну decodeURIComponent(params.country);
+▪  загружает список партнёров этой страны.
+◦  Во втором useEffect:
+▪  если в URL есть #id, прокручивает к элементу с таким id.
+•  Отображает:
+◦  ссылку «← Все партнёры» (возврат на /partners);
+◦  заголовок «Партнёры в {country}»;
+◦  краткую статистику:
+▪  количество университетов;
+▪  суммарное число студентов по обмену;
+▪  минимальный год начала сотрудничества.
+◦  список карточек партнёров:
+▪  подробное описание;
+▪  программы;
+▪  статистика по студентам/количеству программ/лет сотрудничества;
+▪  ссылка на официальный сайт, если указан.
+
+
+
+Папка app/university/ — страница об университете
+
+app/university/page.tsx
+
+Страница /university:
+
+•  Описывает Тимирязевскую академию:
+◦  история, достижения;
+◦  международное сотрудничество;
+◦  список факультетов;
+◦  ключевые цифры (лет истории, стран партнёров, студентов, преподавателей);
+◦  контактная информация.
+•  Есть ссылка Смотреть всех партнеров → на /partners.
+•  Использует стили ./university.css.
+
+app/university/university.css
+
+CSS‑стили для:
+
+•  общего контейнера страницы, хедера с описанием;
+•  основного контента: блок «Информация» + блок «Статистика»;
+•  списка факультетов в виде сетки;
+•  блока контактной информации (адрес, телефон, email, сайт);
+•  адаптивного отображения на разных ширинах экрана.
+
+
+
+Другие файлы в app/
+
+•  app/favicon.ico  
+  Иконка сайта.
+
+
+
+Папка components/ — общие компоненты
+
+components/Header.tsx
+
+Компонент хедера (верхняя навигация):
+
+•  "use client": использует состояние для мобильного меню.
+•  Состав:
+◦  логотип (круг с img src="/logo.svg" и названием «Тимирязевская академия»);
+◦  меню:
+▪  «Партнеры» → /partners;
+▪  «Университет» → /university;
+◦  мобильная кнопка‑гамбургер:
+▪  показывает/скрывает вертикальное меню.
+•  Вёрстка через inline‑стили + небольшой <style jsx> блок для адаптивности:
+◦  на десктопе (min-width: 768px) показывается горизонтальное меню и скрывается кнопка.
+
+components/Footer.tsx
+
+Компонент футера:
+
+•  Подключает стили ./Footer.css.
+•  Содержит:
+◦  логотип и название «Тимирязевская академия — Международное сотрудничество»;
+◦  навигационное меню (как в Header: Партнеры, Университет);
+◦  контактную информацию:
+▪  адрес;
+▪  телефон;
+▪  копирайт с текущим годом (new Date().getFullYear()).
+
+components/WorldMap.tsx
+
+Компонент интерактивной карты мира с партнёрами:
+
+•  "use client", т.к. использует React‑хуки и динамические импорты.
+•  Использует:
+◦  react-leaflet (MapContainer, TileLayer, GeoJSON, Popup);
+◦  leaflet/dist/leaflet.css;
+◦  локальные стили ./WorldMap.css;
+◦  данные PARTNER_DATA и PARTNER_COUNTRIES из app/partners.ts.
+•  Логика:
+◦  Загружает GeoJSON‑данные стран мира через fetch из GitHub‑репозитория.
+◦  Для каждой страны:
+▪  определяет, является ли она страной‑партнёром (по PARTNER_COUNTRIES);
+▪  задаёт стиль (зелёный цвет для стран‑партнёров, серый — для остальных);
+▪  вешает обработчики:
+▪  click — показывает popup с информацией о стране и списком партнёров;
+▪  mouseover / mouseout — подсветка границ;
+▪  для стран‑партнёров выводит tooltip с названием и числом партнёров.
+◦  В popup:
+▪  выводит название страны, код (ISO), список партнёров;
+▪  кнопку‑ссылку «Подробнее о сотрудничестве» на /partners/{country}.
+◦  Внизу под картой:
+▪  блок статистики:
+▪  количество стран‑партнёров;
+▪  количество учебных заведений (считает по PARTNER_DATA);
+▪  условное число студентов по обмену.
+
+
+
+CSS‑файлы в components/
+
+components/Footer.css
+
+Стили для футера:
+
+•  зелёный фон, белый текст;
+•  выравнивание содержимого (логотип, меню, контакты) по колонке / по рядам в зависимости от ширины экрана;
+•  стили списка меню и ссылок;
+•  адаптивные правила для десктопа (горизонтальное расположение).
+
+components/WorldMap.css
+
+Стили для карты:
+
+•  размеры .leaflet-container, скругление, отключение тёмных контуров;
+•  стили легенды (блок в правом нижнем углу);
+•  стили статистического блока под картой;
+•  спиннер загрузки и блок ошибки;
+•  оформление popup‑окна (заголовок, код страны, список партнёров, кнопка);
+•  отключение атрибуции Leaflet/OSM (.leaflet-control-attribution { display: none }).
+
+
+
+Папка public/
+
+•  public/logo.svg  
+  SVG‑логотип, используемый в Header и Footer.
+
+
+
+Как вручную редактировать партнёров и страны в app/partners.ts
+
+Файл: app/partners.ts.
+
+Структура файла
+
+Основные части:
+
+1. Интерфейс партнёра
+ts
+2. Список партнёров PARTNERS  
+   Массив объектов Partner. Каждый объект описывает один университет‑партнёр.
+
+3. Список стран PARTNER_COUNTRIES  
+   Массив строк с названиями стран, в которых есть партнёры.
+
+4. Карта стран к университетам PARTNER_DATA  
+   Объект вида Record<string, string[]>:
+•  ключ — название страны (точно такое же, как в PARTNER_COUNTRIES и в поле country партнёров);
+•  значение — массив строк с названиями университетов из PARTNERS.
+5. Вспомогательные функции:
+◦  getPartnersByCountry(country: string): Partner[] — фильтрует PARTNERS по полю country;
+◦  getCountryPartnersCount(country: string): number — возвращает количество партнёров в стране.
+
+
+
+Как добавить нового партнёра
+
+1. Откройте app/partners.ts.
+2. В массиве PARTNERS добавьте новый объект формата:
+ts
+3. Убедитесь, что:
+◦  id уникален среди всех партнёров (используется как id DOM‑элемента и в ссылках вида #id);
+◦  country написана точно так же, как в других местах (регистр и пробелы важны). Например:
+▪  "Germany", "France", "China", "United States of America", "Brazil", "Kazakhstan".
+4. Если страна уже есть в PARTNER_COUNTRIES, переходите к следующему шагу.  
+   Если страна новая, см. раздел «Как добавить новую страну».
+
+5. В PARTNER_DATA найдите соответствующий ключ страны и добавьте название нового университета в массив значений.  
+   Название должно совпадать с полем name из PARTNERS.  
+   Пример для Германии:
+ts
+6. Сохраните файл. После перезапуска dev‑сервера (npm run dev) новый партнёр появится:
+◦  на странице /partners (в списке «Все партнёры» и в счётчиках);
+◦  на странице /partners/[country];
+◦  в popup на карте (через PARTNER_DATA).
+
+
+
+Как изменить существующего партнёра
+
+1. В PARTNERS найдите объект с нужным id или name.
+2. Измените нужные поля: name, city, description, year, programs, website, studentsCount.
+3. Если вы изменили:
+◦  название университета (name) — обновите соответствующую строку в PARTNER_DATA (чтобы карта отображала новое название);
+◦  страну (country) — проверьте:
+▪  либо новая страна уже есть в PARTNER_COUNTRIES и в PARTNER_DATA (и вы перенесёте название университета в правильный список),
+▪  либо добавьте новую страну (см. ниже).
+
+
+
+Как удалить партнёра
+
+1. В массиве PARTNERS удалите объект соответствующего партнёра.
+2. В PARTNER_DATA:
+◦  найдите массив по стране этого партнёра;
+◦  удалите название университета из массива.
+3. Если после удаления у страны больше нет партнёров:
+◦  вы можете по желанию удалить эту страну из PARTNER_COUNTRIES и из PARTNER_DATA;
+◦  не забывайте, что тогда страна перестанет подсвечиваться на карте и исчезнет из списков.
+
+
+
+Как добавить новую страну
+
+Допустим, нужно добавить новую страну "Italy" и университет в ней.
+
+1. В PARTNERS добавьте партнёра с country: "Italy" (см. пример выше).
+2. В PARTNER_COUNTRIES добавьте новую страну:
+ts
+3. В PARTNER_DATA добавьте ключ:
+ts
+4. Важно: название "Italy" должно совпадать:
+◦  в PARTNER_COUNTRIES;
+◦  в PARTNERS[i].country;
+◦  с названием страны в GeoJSON (feature.properties.name) — от этого зависит подсветка на карте и распознавание страны как партнёра.
