@@ -1,0 +1,266 @@
+/* src/app/university/university.css */
+.university-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  min-height: 70vh;
+}
+
+.university-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 3px solid #006915;
+}
+
+.university-header h1 {
+  color: #006915;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.university-header p {
+  color: #666;
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.university-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.university-info {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.info-section {
+  margin-bottom: 2.5rem;
+}
+
+.info-section:last-child {
+  margin-bottom: 0;
+}
+
+.info-section h2 {
+  color: #006915;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.info-section p {
+  color: #555;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+.info-section p:last-child {
+  margin-bottom: 0;
+}
+
+.partners-link {
+  display: inline-block;
+  color: #006915;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #006915;
+  border-radius: 8px;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.partners-link:hover {
+  background-color: #006915;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 105, 21, 0.2);
+}
+
+.faculties-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.faculties-list li {
+  background: #f8f9fa;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  color: #333;
+  font-weight: 500;
+  border-left: 4px solid #006915;
+  transition: all 0.2s ease;
+}
+
+.faculties-list li:hover {
+  background: #e9f7ec;
+  transform: translateX(5px);
+}
+
+.university-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.university-stat {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.university-stat:hover {
+  transform: translateY(-5px);
+  border-color: #006915;
+  box-shadow: 0 8px 25px rgba(0, 105, 21, 0.15);
+}
+
+.university-stat-number {
+  color: #006915;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.university-stat-label {
+  color: #666;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Дополнительные секции */
+.university-contact {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 3rem;
+}
+
+.contact-section h2 {
+  color: #006915;
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.contact-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #006915;
+}
+
+.contact-item h3 {
+  color: #333;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.contact-item p {
+  color: #666;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.contact-item a {
+  color: #006915;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contact-item a:hover {
+  text-decoration: underline;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 1024px) {
+  .university-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .faculties-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .university-page {
+    padding: 1rem;
+  }
+
+  .university-header h1 {
+    font-size: 2rem;
+  }
+
+  .university-header p {
+    font-size: 1.1rem;
+  }
+
+  .info-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .university-stat {
+    padding: 1.5rem;
+  }
+
+  .university-stat-number {
+    font-size: 2.5rem;
+  }
+
+  .contact-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .university-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .university-header p {
+    font-size: 1rem;
+  }
+
+  .info-section h2 {
+    font-size: 1.3rem;
+  }
+
+  .university-stat-number {
+    font-size: 2rem;
+  }
+
+  .university-stat-label {
+    font-size: 0.9rem;
+  }
+}
