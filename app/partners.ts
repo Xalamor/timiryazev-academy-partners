@@ -125,6 +125,22 @@ export const PARTNERS: Partner[] = [
     website: "https://www.kaznaru.edu.kz",
     studentsCount: 110,
   },
+  {
+    id: "india-agro",
+    name: "Северо-Восточный институт науки и технологий (NEIST, CSIR-NEIST)",
+    country: "India",
+    city: "Джорхат",
+    description:
+      "Исследовательское учреждение Совета научных и промышленных исследований (CSIR) в Индии.",
+    year: 2020,
+    programs: [
+      "Обмен студентами",
+      "Совместные исследования",
+      "Культурные программы",
+    ],
+    website: "https://neist.res.in",
+    studentsCount: 30,
+  },
 ];
 
 export const PARTNER_COUNTRIES = [
@@ -134,6 +150,7 @@ export const PARTNER_COUNTRIES = [
   "United States of America",
   "Brazil",
   "Kazakhstan",
+  "India"
 ];
 
 export const PARTNER_DATA: Record<string, string[]> = {
@@ -149,6 +166,7 @@ export const PARTNER_DATA: Record<string, string[]> = {
   ],
   Brazil: ["Университет Сан-Паулу"],
   Kazakhstan: ["Казахский национальный аграрный университет"],
+  India:["Северо-Восточный институт науки и технологий (NEIST, CSIR-NEIST)"]
 };
 
 export function getPartnersByCountry(country: string): Partner[] {
