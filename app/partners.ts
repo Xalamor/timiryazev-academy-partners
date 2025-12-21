@@ -14,6 +14,22 @@ export interface Partner {
 
 export const PARTNERS: Partner[] = [
   {
+    id: "beijing-agro",
+    name: "Пекинский университет сельского хозяйства",
+    country: "China",
+    city: "Пекин",
+    description:
+      "Ведущий аграрный университет Китая с современными лабораториями и исследовательскими центрами.",
+    year: 2018,
+    programs: [
+      "Обмен преподавателями",
+      "Совместные публикации",
+      "Технологический трансфер",
+    ],
+    website: "https://www.cau.edu.cn",
+    studentsCount: 200,
+  },
+  {
     id: "sao-paulo",
     name: "Университет Сан-Паулу",
     country: "Brazil",
@@ -60,7 +76,10 @@ export const PARTNERS: Partner[] = [
 ];
 
 export const PARTNER_COUNTRIES = [
+  "Germany",
+  "France",
   "China",
+  "United States of America",
   "Brazil",
   "Kazakhstan",
   "India",
@@ -87,7 +106,16 @@ export const PARTNER_COUNTRIES = [
 ];
 
 export const PARTNER_DATA: Record<string, string[]> = {
+  Germany: [
+    "Берлинский университет им. Гумбольдта",
+    "Мюнхенский технический университет",
+  ],
+  France: ["Университет Париж-Сакле"],
   China: ["Пекинский университет сельского хозяйства"],
+  "United States of America": [
+    "Университет Калифорнии, Дэвис",
+    "Корнеллский университет",
+  ],
   Brazil: ["Университет Сан-Паулу"],
   Kazakhstan: ["Казахский национальный аграрный университет"],
   India:["Северо-Восточный институт науки и технологий (NEIST, CSIR-NEIST)"]
