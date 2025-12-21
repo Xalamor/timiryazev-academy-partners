@@ -150,7 +150,8 @@ export const PARTNER_COUNTRIES = [
   "United States of America",
   "Brazil",
   "Kazakhstan",
-  "India"
+  "India",
+  "Egypt"
 ];
 
 export const PARTNER_DATA: Record<string, string[]> = {
