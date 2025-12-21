@@ -151,7 +151,25 @@ export const PARTNER_COUNTRIES = [
   "Brazil",
   "Kazakhstan",
   "India",
-  "Egypt"
+  "Egypt",
+  "Azerbaijan", 
+  "Armenia", 
+  "Belarus",
+  "Benin",
+  "Hungary",
+  "Vietnam",
+  "Zambia",
+  "Iran",
+  "Iraq",
+  "Kyrgyzstan",
+  "Colambia",
+  "Cuba",
+  "Mongolia",
+  "Pakistan",
+  "Serbia",
+  "Tadjikistan",
+  "Uzbekistan",
+  "Ecuador"
 ];
 
 export const PARTNER_DATA: Record<string, string[]> = {
