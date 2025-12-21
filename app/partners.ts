@@ -162,7 +162,7 @@ export const PARTNER_COUNTRIES = [
   "Iran",
   "Iraq",
   "Kyrgyzstan",
-  "Colambia",
+  "Colombia",
   "Cuba",
   "Mongolia",
   "Pakistan",
