@@ -156,6 +156,7 @@ export const PARTNER_COUNTRIES = [
   "Armenia", 
   "Belarus",
   "Benin",
+  "Chad",
   "Hungary",
   "Vietnam",
   "Zambia",
