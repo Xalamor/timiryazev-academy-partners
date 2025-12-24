@@ -76,10 +76,7 @@ export const PARTNERS: Partner[] = [
 ];
 
 export const PARTNER_COUNTRIES = [
-  "Germany",
-  "France",
   "China",
-  "United States of America",
   "Brazil",
   "Kazakhstan",
   "India",
@@ -106,16 +103,7 @@ export const PARTNER_COUNTRIES = [
 ];
 
 export const PARTNER_DATA: Record<string, string[]> = {
-  Germany: [
-    "Берлинский университет им. Гумбольдта",
-    "Мюнхенский технический университет",
-  ],
-  France: ["Университет Париж-Сакле"],
   China: ["Пекинский университет сельского хозяйства"],
-  "United States of America": [
-    "Университет Калифорнии, Дэвис",
-    "Корнеллский университет",
-  ],
   Brazil: ["Университет Сан-Паулу"],
   Kazakhstan: ["Казахский национальный аграрный университет"],
   India:["Северо-Восточный институт науки и технологий (NEIST, CSIR-NEIST)"]
