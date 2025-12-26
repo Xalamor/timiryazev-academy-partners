@@ -57,6 +57,15 @@ export default function UniversityPage() {
               <li>Факультет заочного образования</li>
             </ul>
           </div>
+
+          <div className="info-section">
+            <h2>Карта партнеров Тимирязевской Академии</h2>
+            <img
+              className="partners-map"
+              src="/partners-map.svg"
+              alt="Карта партнеров Тимирязевской Академии"
+            />
+          </div>
         </div>
 
         <div className="university-stats">

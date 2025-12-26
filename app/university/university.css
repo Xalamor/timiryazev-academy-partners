@@ -151,6 +151,14 @@
   letter-spacing: 0.5px;
 }
 
+.partners-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+}
+
 /* Дополнительные секции */
 .university-contact {
   background: #f8f9fa;
