@@ -62,7 +62,7 @@ export default function UniversityPage() {
             <h2>Карта партнеров Тимирязевской Академии</h2>
             <img
               className="partners-map"
-              src="/partners-map.svg"
+              src="/map.jpg"
               alt="Карта партнеров Тимирязевской Академии"
             />
           </div>
